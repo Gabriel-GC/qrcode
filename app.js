@@ -1,6 +1,8 @@
 const container = document.querySelector(".container");
 const qrCodeBtn = document.querySelector("#qr-form button");
 
+// const donwloadQrCode = document.querySelector("#donwload__button");
+
 const qrCodeInput = document.querySelector("#qr-form input");
 
 const qrCodeImg = document.querySelector("#qr-code img");
@@ -8,8 +10,10 @@ const qrCodeImg = document.querySelector("#qr-code img");
 function generateQrCode() {
   const qrCodeInputValue = qrCodeInput.value;
 
-  if (!qrCodeInputValue) return;
-
+  if (!qrCodeInputValue) {
+    qrCodeBtn.innerText = "Digite sua URL acima";
+    return;
+  }
   qrCodeBtn.innerText = "Gerando código...";
   qrCodeImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeInputValue}`;
 
@@ -17,6 +21,7 @@ function generateQrCode() {
     container.classList.add("active");
     qrCodeBtn.innerText = "Código criado!";
   });
+
 }
 
 qrCodeBtn.addEventListener("click", () => {
@@ -27,11 +32,12 @@ qrCodeBtn.addEventListener("click", () => {
 qrCodeInput.addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
     generateQrCode();
-  }});
+  }
+});
 
-  qrCodeInput.addEventListener("keyup", () => {
-    if (!qrCodeInput.value){
-        container.classList.remove("active");
-        qrCodeBtn.innerText = "Gerar QR Code";
-    }
-  })
+qrCodeInput.addEventListener("keyup", () => {
+  if (!qrCodeInput.value) {
+    container.classList.remove("active");
+    qrCodeBtn.innerText = "Gerar QR Code";
+  }
+});
